@@ -35,6 +35,11 @@ CREATE TABLE choir_ranking (
     FOREIGN KEY (choir_id) REFERENCES choirs(id) ON DELETE CASCADE
 );
 
+ALTER TABLE choir_ranking
+DROP CONSTRAINT choir_ranking_choir_id_fkey,
+ADD CONSTRAINT choir_ranking_choir_id_fkey
+FOREIGN KEY (choir_id) REFERENCES choirs(id) ON DELETE CASCADE;
+
 CREATE TABLE events (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -51,6 +56,11 @@ CREATE TABLE event_registrations (
     FOREIGN KEY (choir_id) REFERENCES choirs(id) ON DELETE CASCADE,
     FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
 );
+
+ALTER TABLE event_registrations
+DROP CONSTRAINT event_registrations_event_id_fkey,
+ADD CONSTRAINT event_registrations_event_id_fkey
+FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE;
 
 CREATE OR REPLACE FUNCTION get_conductor_choirs(user_id INT)
 RETURNS TABLE (id INT, name VARCHAR) AS $$
